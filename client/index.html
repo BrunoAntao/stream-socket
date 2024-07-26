@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Broadcaster</title>
+    <meta charset="UTF-8" />
+    <script src="/js/socket.io.js"></script>
+    <script src="/js/socketiop2p.min.js"></script>
+</head>
+
+<body>
+
+    <script>
+
+        import('/js/modular/js/module.js').then(async (Module) => {
+
+            document.body.append(
+                await Module.Element.parse('/js/modular/templates/streams.html')
+            );
+
+        })
+
+    </script>
+
+</body>
+
+</html>

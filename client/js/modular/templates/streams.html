@@ -1,0 +1,49 @@
+<div style="display:flex; flex-direction: column;"></div>
+
+<button>stream</button>
+
+<script>
+
+    function uuidv4() {
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+    }
+
+    const list = Parent.querySelector('div');
+    const button = Parent.querySelector('button');
+
+    const socket = io();
+
+    button.addEventListener('click', () => {
+
+        let id = uuidv4();
+        window.location.href = `/broadcast/${id}`;
+
+    })
+
+    socket.on("connect", () => {
+
+        console.log(`Socket connected`);
+
+    });
+
+    socket.on('streams', streams => {
+
+        console.log('streams');
+
+        list.innerHTML = '';
+
+        streams.forEach(stream => {
+
+            let item = document.createElement('a');
+            item.href = '/watch/' + stream.id;
+            item.innerHTML = stream.name;
+
+            list.append(item);
+
+        });
+
+    })
+
+</script>
